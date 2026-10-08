@@ -65,8 +65,8 @@ const seeds: Seed[] = [
   { kind: 'invoice', clientId: 'c-atlas', issuedAgo: 104, status: 'paid', paidAfter: 6, items: [item('Membership landing page', 1, 950), item('Photo retouching', 12, 15)] },
   { kind: 'invoice', clientId: 'c-lumen', issuedAgo: 75, status: 'paid', paidAfter: 18, items: [item('Online booking setup', 1, 650), item('Staff training session (hours)', 2, 90)] },
   { kind: 'invoice', clientId: 'c-harbor', issuedAgo: 48, status: 'paid', paidAfter: 5, items: [item('Social media management (monthly)', 1, 700), item('Short-form video edits', 4, 85)] },
-  { kind: 'invoice', clientId: 'c-fieldnote', issuedAgo: 30, status: 'paid', paidAfter: 10, items: [item('E-commerce product pages', 20, 35), item('Payment and shipping setup', 1, 400)], discount: { type: 'percent', value: 10 } },
-  { kind: 'invoice', clientId: 'c-kettle', issuedAgo: 12, status: 'paid', paidAfter: 4, items: [item('Website care plan (monthly)', 1, 180)] },
+  { kind: 'invoice', clientId: 'c-fieldnote', issuedAgo: 26, status: 'paid', paidAfter: 22, items: [item('E-commerce product pages', 20, 35), item('Payment and shipping setup', 1, 400)], discount: { type: 'percent', value: 10 } },
+  { kind: 'invoice', clientId: 'c-kettle', issuedAgo: 7, status: 'paid', paidAfter: 5, items: [item('Website care plan (monthly)', 1, 180)] },
   { kind: 'invoice', clientId: 'c-atlas', issuedAgo: 34, status: 'sent', items: [item('Class schedule app screens', 6, 140), item('Usability review', 1, 300)] },
   { kind: 'invoice', clientId: 'c-lumen', issuedAgo: 22, status: 'sent', items: [item('Google Business profile optimisation', 1, 350), item('Review request automation', 1, 420)] },
   { kind: 'invoice', clientId: 'c-harbor', issuedAgo: 6, status: 'sent', items: [item('Social media management (monthly)', 1, 700)] },
@@ -78,7 +78,9 @@ const seeds: Seed[] = [
 
 export function sampleDocs(todayISO = today(), business = sampleBusiness): Doc[] {
   const counters = { invoice: 0, quote: 0 }
-  return seeds.map((s, i) => {
+  // Number documents in date order, oldest first, like a real ledger
+  const ordered = [...seeds].sort((a, b) => b.issuedAgo - a.issuedAgo)
+  return ordered.map((s, i) => {
     const issueDate = addDays(todayISO, -s.issuedAgo)
     const num = ++counters[s.kind]
     const prefix = s.kind === 'invoice' ? business.invoicePrefix : business.quotePrefix

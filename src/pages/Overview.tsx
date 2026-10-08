@@ -69,7 +69,7 @@ export function Overview() {
             </span>
           </div>
           <div className='relative mt-7 flex flex-wrap gap-2'>
-            <Button variant='ink' onClick={() => navigate('/documents')}>
+            <Button variant='ink' className='bg-[#0a0a0a] text-white' onClick={() => navigate('/documents')}>
               See all invoices <ArrowRight />
             </Button>
             {needsNudge[0] && (

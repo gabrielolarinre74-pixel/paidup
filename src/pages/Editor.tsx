@@ -254,18 +254,18 @@ function EditorView({ doc }: { doc: Doc }) {
             </datalist>
             <div className='space-y-3 p-5'>
               {doc.items.map((item, idx) => (
-                <div key={item.id} className='grid grid-cols-[1fr_auto] gap-2 rounded-xl border bg-surface p-3 sm:grid-cols-[minmax(0,1fr)_70px_100px_auto]'>
+                <div key={item.id} className='grid grid-cols-[72px_110px_minmax(0,1fr)] gap-2 rounded-xl border bg-surface p-3'>
                   <Input
                     aria-label={`Item ${idx + 1} description`}
                     list='item-library'
                     placeholder='What did you do?'
                     value={item.description}
                     onChange={(e) => onDescription(item, e.target.value)}
-                    className='col-span-2 sm:col-span-1'
+                    className='col-span-3'
                   />
                   <Input aria-label={`Item ${idx + 1} quantity`} type='number' min={0} step='any' value={item.quantity} onChange={(e) => updateItem(doc.id, item.id, { quantity: Math.max(0, parseAmount(e.target.value)) })} />
                   <Input aria-label={`Item ${idx + 1} rate`} type='number' min={0} step='any' value={item.rate} onChange={(e) => updateItem(doc.id, item.id, { rate: Math.max(0, parseAmount(e.target.value)) })} />
-                  <div className='col-span-2 flex items-center justify-end gap-0.5 sm:col-span-1'>
+                  <div className='flex items-center justify-end gap-0.5'>
                     <span className='tabular mr-2 min-w-20 text-right text-sm font-bold'>{formatMoney(lineTotal(item), doc.currency)}</span>
                     <Button size='icon' variant='ghost' className='size-8' aria-label='Move up' disabled={idx === 0} onClick={() => moveItem(doc.id, item.id, -1)}>
                       <ArrowUp />
