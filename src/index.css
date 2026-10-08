@@ -1,0 +1,95 @@
+@import '@fontsource-variable/manrope';
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --surface: #fafaf9;
+  --card: #ffffff;
+  --muted: #f5f5f4;
+  --muted-foreground: #6b6b6b;
+  --border: #ebebea;
+  --input: #e2e2e0;
+  --primary: #facc15;
+  --primary-strong: #eab308;
+  --primary-foreground: #0a0a0a;
+  --primary-soft: #fef9c3;
+  --ink: #0a0a0a;
+  --ink-foreground: #ffffff;
+  --success: #15803d;
+  --danger: #dc2626;
+  --ring: #facc15;
+  --shadow-card: 0 1px 2px rgb(10 10 10 / 0.04), 0 6px 24px -12px rgb(10 10 10 / 0.12);
+  --shadow-pop: 0 24px 60px -20px rgb(10 10 10 / 0.35);
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #f5f5f4;
+  --surface: #0f0f0f;
+  --card: #141414;
+  --muted: #1c1c1c;
+  --muted-foreground: #a3a3a3;
+  --border: #262626;
+  --input: #2e2e2e;
+  --primary: #facc15;
+  --primary-strong: #fde047;
+  --primary-foreground: #0a0a0a;
+  --primary-soft: rgb(250 204 21 / 0.12);
+  --ink: #fafaf9;
+  --ink-foreground: #0a0a0a;
+  --success: #4ade80;
+  --danger: #f87171;
+  --shadow-card: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 8px 30px -16px rgb(0 0 0 / 0.8);
+}
+
+@theme inline {
+  --font-sans: 'Manrope Variable', 'Manrope', ui-sans-serif, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-ring: var(--ring);
+  --shadow-card: var(--shadow-card);
+  --shadow-pop: var(--shadow-pop);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-surface text-foreground;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  ::selection {
+    background: var(--primary);
+    color: #0a0a0a;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
