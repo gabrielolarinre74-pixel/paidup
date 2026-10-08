@@ -29,7 +29,7 @@ const s = StyleSheet.create({
   between: { flexDirection: 'row', justifyContent: 'space-between' },
   label: { fontSize: 7.5, fontWeight: 700, color: light, textTransform: 'uppercase', letterSpacing: 0.8 },
   muted: { color: grey },
-  title: { fontSize: 24, fontWeight: 800, textTransform: 'uppercase', textAlign: 'right' },
+  title: { fontSize: 24, fontWeight: 800, textTransform: 'uppercase', textAlign: 'right', lineHeight: 1.1, marginBottom: 4 },
   amountBox: { backgroundColor: '#FEF9C3', borderRadius: 6, padding: 10, width: 150, textAlign: 'right' },
   th: { fontSize: 7.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.8, paddingVertical: 6 },
   td: { paddingVertical: 6 },
@@ -55,7 +55,7 @@ export function DocPdf({ doc, client, business }: { doc: Doc; client?: Client; b
               {[business.logo ? business.name : '', business.address, business.email, business.phone].filter(Boolean).join('\n')}
             </Text>
           </View>
-          <View>
+          <View style={{ alignItems: 'flex-end' }}>
             <Text style={s.title}>{kindLabel(doc.kind)}</Text>
             <Text style={[s.muted, { textAlign: 'right', fontWeight: 700 }]}>{doc.number}</Text>
           </View>

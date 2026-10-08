@@ -3,12 +3,23 @@ import { totals, displayStatus, kindLabel } from './documents'
 import { formatMoney } from './money'
 import type { Business, Client, Doc } from './types'
 
+const TITLES = /^(dr|mr|mrs|ms|mx|prof|sir|dame)\.?$/i
+
+/** "Leo Martins" -> "Leo"; "Dr. Owen Hart" -> "Dr. Hart"; falls back to the company name. */
+export function greetingName(client?: Pick<Client, 'contact' | 'name'>) {
+  const parts = (client?.contact ?? '').trim().split(/\s+/).filter(Boolean)
+  if (parts.length && TITLES.test(parts[0])) {
+    return parts.length > 1 ? `${parts[0]} ${parts[parts.length - 1]}` : parts[0]
+  }
+  return parts[0] || client?.name || 'there'
+}
+
 /**
  * Plain-text message for a document: a polite send note, a gentle reminder before
  * the due date, or a firmer follow-up once it is overdue.
  */
 export function reminderMessage(doc: Doc, client: Client | undefined, business: Business, todayISO: string) {
-  const name = client?.contact?.split(' ')[0] || client?.name || 'there'
+  const name = greetingName(client)
   const amount = formatMoney(totals(doc).total, doc.currency)
   const label = kindLabel(doc.kind).toLowerCase()
   const sign = business.owner || business.name || ''

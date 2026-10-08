@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { sampleBusiness } from '@/store/sample'
-import { mailtoLink, reminderMessage, whatsappLink } from './reminders'
+import { greetingName, mailtoLink, reminderMessage, whatsappLink } from './reminders'
 import type { Client, Doc } from './types'
 
 const client: Client = { id: 'c', name: 'Kettle Bakery', contact: 'Leo Martins', email: 'leo@x.example', phone: '+1 (555) 0102', address: '', createdAt: '' }
@@ -40,5 +40,14 @@ describe('links', () => {
   })
   it('builds a mailto link', () => {
     expect(mailtoLink('a@b.co', 'Invoice 1', 'x y')).toBe('mailto:a%40b.co?subject=Invoice%201&body=x%20y')
+  })
+})
+
+describe('greetingName', () => {
+  it('keeps titles with the surname and falls back to the company', () => {
+    expect(greetingName({ contact: 'Dr. Owen Hart', name: 'Lumen' })).toBe('Dr. Hart')
+    expect(greetingName({ contact: 'Maya Chen', name: 'Harbor' })).toBe('Maya')
+    expect(greetingName({ contact: '', name: 'Harbor' })).toBe('Harbor')
+    expect(greetingName(undefined)).toBe('there')
   })
 })
